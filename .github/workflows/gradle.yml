@@ -80,8 +80,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
         aws deploy create-deployment \
-        --application-name codeDeployTestApplication \
-        --deployment-group-name codeDeployTestGroup \
+        --application-name test-codedeploy \
+        --deployment-group-name GROUP \
         --file-exists-behavior OVERWRITE \
         --s3-location bucket=spartatestbucket,bundleType=zip,key=test.zip \
         --region ${{ secrets.AWS_REGION }}
