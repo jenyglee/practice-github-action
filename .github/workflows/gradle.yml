@@ -13,6 +13,12 @@ on:
   pull_request:
     branches: [ "develop" ]
 
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: jaewon-github-action-s3-bucket
+  CODE_DEPLOY_APPLICATION_NAME: test-codedeploy
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: GROUP
+
 permissions:
   contents: read
 
@@ -65,7 +71,7 @@ jobs:
       # 깃허브 Secret에 넣어둔 Secret key
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       # 깃허브 Secret에 넣어둔 Region
-        aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: env.AWS_REGION
 
     #3
     # 만들어 놓은 S3에 해당 zip 파일 저장
@@ -83,5 +89,5 @@ jobs:
         --application-name test-codedeploy \
         --deployment-group-name GROUP \
         --file-exists-behavior OVERWRITE \
-        --s3-location bucket=spartatestbucket,bundleType=zip,key=test.zip \
-        --region ${{ secrets.AWS_REGION }}
+        --s3-location bucket=jaewon-github-action-s3-bucket,bundleType=zip,key=test.zip \
+        --region env.AWS_REGION
